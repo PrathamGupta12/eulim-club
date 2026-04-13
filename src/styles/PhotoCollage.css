@@ -1,0 +1,54 @@
+.collage-section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .collage-section {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.collage-container {
+  max-width: 1280px; /* container mx-auto */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.collage-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.collage-badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.collage-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .collage-title {
+    font-size: 3rem;
+  }
+}
+
+.collage-description {
+  margin-top: 1rem;
+  color: hsl(var(--muted-foreground));
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.125rem;
+}
