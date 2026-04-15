@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EULIM Science Club">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07111f" />
+      <stop offset="100%" stop-color="#10243d" />
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3a43b" />
+      <stop offset="100%" stop-color="#f06d2f" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)" />
+  <circle cx="32" cy="32" r="21" fill="none" stroke="url(#ring)" stroke-width="4" />
+  <path d="M24 21h18v5H30v8h11v5H30v4h12v5H24z" fill="#f7fafc" />
+  <circle cx="46" cy="18" r="3" fill="#2ea7ff" />
+  <circle cx="18" cy="44" r="2.5" fill="#2ea7ff" opacity="0.9" />
+</svg>

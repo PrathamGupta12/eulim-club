@@ -1,3 +1,3 @@
-# EULIM Science Club Project
+# EULIM Science Club
 
-TODO: Document your project here
+Website for the EULIM Science Club.
