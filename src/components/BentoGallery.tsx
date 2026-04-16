@@ -81,7 +81,7 @@ function BentoCard({ item, index }: { item: BentoItem; index: number }) {
 
 export default function BentoGallery({ items }: { items: BentoItem[] }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[200px]">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[140px] md:auto-rows-[200px]">
       {items.map((item, i) => (
         <BentoCard key={`${item.label}-${i}`} item={item} index={i} />
       ))}

@@ -1,20 +1,45 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const GlitchCard = () => {
+type EventKey = "exhibition" | "quantum";
+
+interface EventCardProps {
+  isActive: boolean;
+  onActivate: () => void;
+}
+
+const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, onActivate: () => void) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    onActivate();
+  }
+};
+
+export const GlitchCard = ({ isActive, onActivate }: EventCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const showEffects = isHovered || isActive;
 
   return (
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      onClick={onActivate}
+      onKeyDown={(event) => handleCardKeyDown(event, onActivate)}
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", damping: 20 }}
-      className="relative rounded-xl border border-border/50 p-8 overflow-hidden cursor-pointer group"
+      className={`relative rounded-xl border p-5 md:p-8 overflow-hidden cursor-pointer group transition-[border-color,box-shadow,transform] duration-300 ${
+        isActive ? "border-primary/60" : "border-border/50"
+      }`}
+      role="button"
+      aria-pressed={isActive}
+      aria-label="Show Quantum Quest details"
+      tabIndex={0}
       style={{
         background: "hsla(270, 40%, 8%, 0.6)",
         backdropFilter: "blur(16px)",
-        boxShadow: isHovered
+        boxShadow: showEffects
           ? "0 0 40px hsla(0, 95%, 47%, 0.3), 0 0 80px hsla(0, 95%, 47%, 0.1)"
           : "0 0 20px hsla(0, 95%, 47%, 0.1)",
       }}
@@ -27,17 +52,17 @@ export const GlitchCard = () => {
       <div className="relative z-10">
         <div className="relative">
           <h3
-            className={`text-2xl font-bold mb-3 text-foreground transition-all duration-100 ${
-              isHovered ? "opacity-0" : ""
+            className={`text-xl md:text-2xl font-bold mb-3 text-foreground transition-all duration-100 ${
+              showEffects ? "opacity-0" : ""
             }`}
           >
             Quantum Quest 2026
           </h3>
 
-          {isHovered && (
+          {showEffects && (
             <>
               <h3
-                className="text-2xl font-bold mb-3 absolute top-0 left-0"
+                className="text-xl md:text-2xl font-bold mb-3 absolute top-0 left-0"
                 style={{
                   color: "hsl(0, 95%, 47%)",
                   animation: "glitch-1 0.15s infinite linear alternate-reverse",
@@ -47,7 +72,7 @@ export const GlitchCard = () => {
                 Quantum Quest 2026
               </h3>
               <h3
-                className="text-2xl font-bold mb-3 absolute top-0 left-0"
+                className="text-xl md:text-2xl font-bold mb-3 absolute top-0 left-0"
                 style={{
                   color: "hsl(190, 100%, 50%)",
                   animation: "glitch-2 0.15s infinite linear alternate-reverse",
@@ -56,7 +81,7 @@ export const GlitchCard = () => {
               >
                 Quantum Quest 2026
               </h3>
-              <h3 className="text-2xl font-bold mb-3 text-foreground">
+              <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground">
                 Quantum Quest 2026
               </h3>
             </>
@@ -76,7 +101,7 @@ export const GlitchCard = () => {
         </div>
       </div>
 
-      {isHovered && (
+      {showEffects && (
         <motion.div
           initial={{ top: "0%" }}
           animate={{ top: "100%" }}
@@ -89,26 +114,37 @@ export const GlitchCard = () => {
   );
 };
 
-export const BlueprintCard = () => {
+export const BlueprintCard = ({ isActive, onActivate }: EventCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const showEffects = isHovered || isActive;
 
   return (
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      onClick={onActivate}
+      onKeyDown={(event) => handleCardKeyDown(event, onActivate)}
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", damping: 20 }}
-      className="relative rounded-xl border border-border/50 p-8 overflow-hidden cursor-pointer"
+      className={`relative rounded-xl border p-5 md:p-8 overflow-hidden cursor-pointer transition-[border-color,box-shadow,transform] duration-300 ${
+        isActive ? "border-primary/60" : "border-border/50"
+      }`}
+      role="button"
+      aria-pressed={isActive}
+      aria-label="Show Science Exhibition details"
+      tabIndex={0}
       style={{
         background: "hsla(270, 40%, 8%, 0.6)",
         backdropFilter: "blur(16px)",
-        boxShadow: isHovered
+        boxShadow: showEffects
           ? "0 0 40px hsla(190, 100%, 50%, 0.2), 0 0 80px hsla(190, 100%, 50%, 0.08)"
           : "0 0 20px hsla(270, 60%, 20%, 0.15)",
       }}
     >
       <AnimatePresence>
-        {isHovered && (
+        {showEffects && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ 
@@ -137,14 +173,14 @@ export const BlueprintCard = () => {
 
       <motion.div
         animate={{
-          z: isHovered ? 20 : 0,
-          y: isHovered ? -4 : 0,
+          z: showEffects ? 20 : 0,
+          y: showEffects ? -4 : 0,
         }}
         transition={{ type: "spring", damping: 20 }}
         className="relative z-10"
         style={{ perspective: "600px", transformStyle: "preserve-3d" }}
       >
-        <h3 className="text-2xl font-bold mb-3 text-foreground">
+        <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground">
           Science Exhibition
         </h3>
         <p className="text-muted-foreground leading-relaxed mb-6">
@@ -153,7 +189,7 @@ export const BlueprintCard = () => {
       </motion.div>
 
       <motion.div
-        animate={isHovered ? { scale: [1, 1.05, 1] } : {}}
+        animate={showEffects ? { scale: [1, 1.05, 1] } : {}}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase pulse-badge"
         style={{
@@ -169,12 +205,24 @@ export const BlueprintCard = () => {
   );
 };
 
-export default function SpecialEvents() {
+export default function SpecialEvents({
+  activeEvent,
+  onThemeChange,
+}: {
+  activeEvent: EventKey;
+  onThemeChange: (event: EventKey) => void;
+}) {
   return (
-    <div className="py-20 overflow-visible">
-      <div className="grid md:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
-        <BlueprintCard />
-        <GlitchCard />
+    <div className="py-10 md:py-20 overflow-visible">
+      <div className="grid md:grid-cols-2 gap-6 lg:gap-12 overflow-visible">
+        <BlueprintCard
+          isActive={activeEvent === "exhibition"}
+          onActivate={() => onThemeChange("exhibition")}
+        />
+        <GlitchCard
+          isActive={activeEvent === "quantum"}
+          onActivate={() => onThemeChange("quantum")}
+        />
       </div>
     </div>
   );

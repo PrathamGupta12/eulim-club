@@ -3,7 +3,7 @@ import ContactSection from "@/components/ContactSection";
 
 const Contact = () => (
   <PageLayout>
-    <div className="page-pt-20">
+    <div className="pt-16 md:pt-20">
       <ContactSection />
     </div>
   </PageLayout>

@@ -9,9 +9,7 @@ import "../styles/Navbar.css";
 const links = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "History", to: "/history" },
   { label: "Activities", to: "/activities" },
-  { label: "Team", to: "/team" },
   { label: "Contact", to: "/contact" },
   { label: "Sponsor Us", to: "/sponsors" },
 ];
@@ -35,9 +33,8 @@ export default function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className={`navbar-link ${
-                  location.pathname === l.to ? "navbar-link-active" : "navbar-link-inactive"
-                }`}
+                className={`navbar-link ${location.pathname === l.to ? "navbar-link-active" : "navbar-link-inactive"
+                  }`}
               >
                 {l.label}
               </Link>
@@ -70,9 +67,8 @@ export default function Navbar() {
                     key={l.to}
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className={`navbar-link ${
-                      location.pathname === l.to ? "navbar-link-active" : "navbar-link-inactive"
-                    }`}
+                    className={`navbar-link ${location.pathname === l.to ? "navbar-link-active" : "navbar-link-inactive"
+                      }`}
                   >
                     {l.label}
                   </Link>

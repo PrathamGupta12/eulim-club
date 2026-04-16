@@ -1,5 +1,19 @@
 import React, { useEffect, useRef, ReactNode } from 'react';
 
+type GlowCardStyle = React.CSSProperties & {
+  "--base": number;
+  "--spread": number;
+  "--radius-glow": string;
+  "--border": string;
+  "--backdrop": string;
+  "--backup-border": string;
+  "--size": string;
+  "--outer": string;
+  "--border-size": string;
+  "--spotlight-size": string;
+  "--hue": string;
+};
+
 interface GlowCardProps {
   children: ReactNode;
   className?: string;
@@ -37,7 +51,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
 
   const { base, spread } = glowColorMap[glowColor];
 
-  const style: React.CSSProperties & Record<string, string | number> = {
+  const style: GlowCardStyle = {
     '--base': base,
     '--spread': spread,
     '--radius-glow': '14',
@@ -62,7 +76,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
     border: 'var(--border-size) solid var(--backup-border)',
     position: 'relative',
     touchAction: 'none',
-  } as any;
+  };
 
   return (
     <div

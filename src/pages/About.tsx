@@ -1,10 +1,10 @@
 import PageLayout from "@/components/PageLayout";
-import AboutSection from "@/components/AboutSection";
+import AboutHistoryTeamSection from "@/components/AboutHistoryTeamSection";
 
 const About = () => (
   <PageLayout>
-    <div className="page-pt-20">
-      <AboutSection />
+    <div className="pt-16 md:pt-20">
+      <AboutHistoryTeamSection />
     </div>
   </PageLayout>
 );

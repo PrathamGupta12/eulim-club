@@ -3,7 +3,7 @@ import SponsorUsSection from "@/components/SponsorUsSection";
 
 const Sponsors = () => (
   <PageLayout>
-    <div className="page-pt-20">
+    <div className="pt-16 md:pt-20">
       <SponsorUsSection />
     </div>
   </PageLayout>
