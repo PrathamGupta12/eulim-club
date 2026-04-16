@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type EventKey = "exhibition" | "quantum";
+type ActiveView = "catalyst" | "enigma";
 
 interface EventCardProps {
   isActive: boolean;
@@ -206,22 +206,22 @@ export const BlueprintCard = ({ isActive, onActivate }: EventCardProps) => {
 };
 
 export default function SpecialEvents({
-  activeEvent,
-  onThemeChange,
+  activeView,
+  onViewChange,
 }: {
-  activeEvent: EventKey;
-  onThemeChange: (event: EventKey) => void;
+  activeView: ActiveView;
+  onViewChange: (view: ActiveView) => void;
 }) {
   return (
     <div className="py-10 md:py-20 overflow-visible">
       <div className="grid md:grid-cols-2 gap-6 lg:gap-12 overflow-visible">
         <BlueprintCard
-          isActive={activeEvent === "exhibition"}
-          onActivate={() => onThemeChange("exhibition")}
+          isActive={activeView === "catalyst"}
+          onActivate={() => onViewChange("catalyst")}
         />
         <GlitchCard
-          isActive={activeEvent === "quantum"}
-          onActivate={() => onThemeChange("quantum")}
+          isActive={activeView === "enigma"}
+          onActivate={() => onViewChange("enigma")}
         />
       </div>
     </div>

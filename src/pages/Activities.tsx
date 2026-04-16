@@ -5,7 +5,8 @@ import PageLayout from "@/components/PageLayout";
 import ActivitiesSection from "@/components/ActivitiesSection";
 import SpecialEvents from "@/components/SpecialEvents";
 
-type EventKey = "exhibition" | "quantum";
+type ActiveView = "catalyst" | "enigma";
+type ThemeKey = "exhibition" | "quantum";
 
 type ActivitiesThemeStyle = CSSProperties & {
   "--background": string;
@@ -24,7 +25,7 @@ type ActivitiesThemeStyle = CSSProperties & {
   "--activities-surface": string;
 };
 
-const eventThemes: Record<EventKey, ActivitiesThemeStyle> = {
+const themeStyles: Record<ThemeKey, ActivitiesThemeStyle> = {
   exhibition: {
     "--background": "205 42% 8%",
     "--card": "218 29% 11%",
@@ -59,19 +60,25 @@ const eventThemes: Record<EventKey, ActivitiesThemeStyle> = {
   },
 };
 
-const Activities = () => {
-  const [activeEvent, setActiveEvent] = useState<EventKey>("exhibition");
-  const [themePulse, setThemePulse] = useState(0);
-  const activeTheme = eventThemes[activeEvent];
+const viewThemeMap: Record<ActiveView, ThemeKey> = {
+  catalyst: "exhibition",
+  enigma: "quantum",
+};
 
-  const handleThemeChange = (event: EventKey) => {
-    setActiveEvent(event);
+const Activities = () => {
+  const [activeView, setActiveView] = useState<ActiveView>("catalyst");
+  const [themePulse, setThemePulse] = useState(0);
+  const activeThemeKey = viewThemeMap[activeView];
+  const activeTheme = themeStyles[activeThemeKey];
+
+  const handleViewChange = (view: ActiveView) => {
+    setActiveView(view);
     setThemePulse((value) => value + 1);
 
     if (typeof window !== "undefined") {
       window.requestAnimationFrame(() => {
-        const panel = document.querySelector<HTMLElement>(`[data-event="${event}"]`);
-        panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+        const section = document.getElementById("activities");
+        section?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     }
   };
@@ -80,13 +87,14 @@ const Activities = () => {
     <PageLayout>
       <motion.div
         className="pt-16 md:pt-20 activities-theme-shell"
+        data-activities-theme={activeThemeKey}
         animate={activeTheme}
         transition={{ duration: 0.45, ease: "easeInOut" }}
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${activeEvent}-${themePulse}`}
-            className={`activities-theme-sweep activities-theme-sweep-${activeEvent}`}
+            key={`${activeView}-${themePulse}`}
+            className={`activities-theme-sweep activities-theme-sweep-${activeThemeKey}`}
             initial={{ opacity: 0, scaleY: 0.2, y: -120 }}
             animate={{ opacity: [0, 0.95, 0], scaleY: [0.2, 1, 1.08], y: [-120, 0, 80] }}
             exit={{ opacity: 0 }}
@@ -100,9 +108,9 @@ const Activities = () => {
         <div className="activities-theme-grid" />
         <div className="activities-theme-content">
           <div className="container mx-auto px-4 md:px-6">
-            <SpecialEvents activeEvent={activeEvent} onThemeChange={handleThemeChange} />
+            <SpecialEvents activeView={activeView} onViewChange={handleViewChange} />
           </div>
-          <ActivitiesSection activeEvent={activeEvent} themePulse={themePulse} />
+          <ActivitiesSection activeView={activeView} themePulse={themePulse} />
         </div>
       </motion.div>
     </PageLayout>

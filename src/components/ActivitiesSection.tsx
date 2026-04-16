@@ -13,6 +13,8 @@ import iic from "@/assets/sponsors/iic.jpg";
 import cic from "@/assets/sponsors/cic.jpg";
 import eulimLogo from "@/assets/eulim-logo.jpeg";
 
+type ActiveView = "catalyst" | "enigma";
+
 const exhibitionCategories = [
   {
     icon: Microscope,
@@ -102,30 +104,27 @@ function SponsorStrip({ sponsors, title }: { sponsors: typeof exhibitionSponsors
 }
 
 export default function ActivitiesSection({
-  activeEvent,
+  activeView,
   themePulse,
 }: {
-  activeEvent: "exhibition" | "quantum";
+  activeView: ActiveView;
   themePulse: number;
 }) {
   return (
     <section id="activities" className="relative py-12 md:py-32">
       <div className="section-divider mb-12 md:mb-24" />
       <div className="container mx-auto px-4">
-
-        {/* ═══════ SECTION 1: SCIENCE EXHIBITION — "The Catalyst Arena" ═══════ */}
-        <motion.div
-          data-event="exhibition"
-          data-active={activeEvent === "exhibition"}
-          className="activities-event-panel mb-12 md:mb-20"
-          animate={{
-            scale: activeEvent === "exhibition" ? 1 : 0.985,
-            y: activeEvent === "exhibition" ? -4 : 10,
-          }}
-          transition={{ type: "spring", stiffness: 180, damping: 24 }}
-        >
-          <AnimatePresence mode="wait">
-            {activeEvent === "exhibition" && (
+        <AnimatePresence mode="wait">
+          {activeView === "catalyst" ? (
+            <motion.div
+              key={`catalyst-${themePulse}`}
+              data-active="true"
+              className="activities-event-panel"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            >
               <motion.div
                 key={`exhibition-${themePulse}`}
                 className="activities-event-signal activities-event-signal-exhibition"
@@ -134,99 +133,90 @@ export default function ActivitiesSection({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.85, ease: "easeOut" }}
               />
-            )}
-          </AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <span className="activities-theme-kicker text-sm font-semibold text-primary tracking-widest uppercase">Flagship Event</span>
-            <h2 className="activities-theme-title font-display text-3xl md:text-5xl font-bold mt-3">The Catalyst Arena</h2>
-            <p className="activities-theme-copy text-muted-foreground mt-2 text-base md:text-lg">Science Exhibition 2025</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-6 mb-10"
-          >
-            {[
-              { icon: Calendar, text: "09 October, 2025" },
-              { icon: Clock, text: "11:15 AM" },
-              { icon: MapPin, text: "Synergy Square" },
-            ].map((m) => (
-              <div key={m.text} className="activities-theme-pill flex items-center gap-2 text-sm text-muted-foreground">
-                <m.icon size={16} className="text-primary" />
-                <span>{m.text}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto mb-16"
-          >
-            <div className="activities-theme-card rounded-xl border border-border bg-card p-5 md:p-8">
-              <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
-                Join us for an extraordinary celebration of innovation and discovery at the Science Exhibition, set against the dynamic backdrop of Synergy Square. This highly anticipated event promises to captivate and inspire with its dynamic lineup of four distinct categories: <strong className="text-foreground">Discovery Constructs</strong>, <strong className="text-foreground">Insight Showcase</strong>, <strong className="text-foreground">Visionary Concepts</strong>, and <strong className="text-foreground">Future Ventures</strong>.
-              </p>
-              <p className="activities-theme-copy text-muted-foreground leading-relaxed">
-                Whether you are a student eager to learn, a professional seeking the latest trends, or a curious individual passionate about science, this exhibition is an unmissable opportunity to immerse yourself in the latest advancements and visionary ideas.
-              </p>
-            </div>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-16">
-            {exhibitionCategories.map((c, i) => (
               <motion.div
-                key={c.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                className="text-center mb-8"
               >
-                <GlowCard glowColor="orange" className="activities-theme-card p-5 md:p-8 h-full group">
-                  <div className="relative z-10">
-                    <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <c.icon size={28} />
-                    </div>
-                    <h3 className="activities-theme-title font-display text-xl font-semibold mb-2">{c.title}</h3>
-                    <p className="activities-theme-copy text-muted-foreground text-sm leading-relaxed">{c.desc}</p>
-                  </div>
-                </GlowCard>
+                <span className="activities-theme-kicker text-sm font-semibold text-primary tracking-widest uppercase">Flagship Event</span>
+                <h2 className="activities-theme-title font-display text-3xl md:text-5xl font-bold mt-3">The Catalyst Arena</h2>
+                <p className="activities-theme-copy text-muted-foreground mt-2 text-base md:text-lg">Science Exhibition 2025</p>
               </motion.div>
-            ))}
-          </div>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h3 className="activities-theme-title font-display text-2xl font-semibold text-center mb-8">Catalyst Chronicles</h3>
-            <BentoGallery items={exhibitionPhotos} />
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap justify-center gap-6 mb-10"
+              >
+                {[
+                  { icon: Calendar, text: "09 October, 2025" },
+                  { icon: Clock, text: "11:15 AM" },
+                  { icon: MapPin, text: "Synergy Square" },
+                ].map((m) => (
+                  <div key={m.text} className="activities-theme-pill flex items-center gap-2 text-sm text-muted-foreground">
+                    <m.icon size={16} className="text-primary" />
+                    <span>{m.text}</span>
+                  </div>
+                ))}
+              </motion.div>
 
-          <SponsorStrip sponsors={exhibitionSponsors} title="Collaborative Partners" />
-        </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="max-w-3xl mx-auto mb-16"
+              >
+                <div className="activities-theme-card rounded-xl border border-border bg-card p-5 md:p-8">
+                  <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
+                    Join us for an extraordinary celebration of innovation and discovery at the Science Exhibition, set against the dynamic backdrop of Synergy Square. This highly anticipated event promises to captivate and inspire with its dynamic lineup of four distinct categories: <strong className="text-foreground">Discovery Constructs</strong>, <strong className="text-foreground">Insight Showcase</strong>, <strong className="text-foreground">Visionary Concepts</strong>, and <strong className="text-foreground">Future Ventures</strong>.
+                  </p>
+                  <p className="activities-theme-copy text-muted-foreground leading-relaxed">
+                    Whether you are a student eager to learn, a professional seeking the latest trends, or a curious individual passionate about science, this exhibition is an unmissable opportunity to immerse yourself in the latest advancements and visionary ideas.
+                  </p>
+                </div>
+              </motion.div>
 
-        {/* ═══════ DIVIDER ═══════ */}
-        <div className="section-divider my-12 md:my-24" />
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-16">
+                {exhibitionCategories.map((c, i) => (
+                  <motion.div
+                    key={c.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                  >
+                    <GlowCard glowColor="orange" className="activities-theme-card p-5 md:p-8 h-full group">
+                      <div className="relative z-10">
+                        <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                          <c.icon size={28} />
+                        </div>
+                        <h3 className="activities-theme-title font-display text-xl font-semibold mb-2">{c.title}</h3>
+                        <p className="activities-theme-copy text-muted-foreground text-sm leading-relaxed">{c.desc}</p>
+                      </div>
+                    </GlowCard>
+                  </motion.div>
+                ))}
+              </div>
 
-        {/* ═══════ SECTION 2: QUANTUM QUEST — "The Enigma Expedition" ═══════ */}
-        <motion.div
-          data-event="quantum"
-          data-active={activeEvent === "quantum"}
-          className="activities-event-panel"
-          animate={{
-            scale: activeEvent === "quantum" ? 1 : 0.985,
-            y: activeEvent === "quantum" ? -4 : 10,
-          }}
-          transition={{ type: "spring", stiffness: 180, damping: 24 }}
-        >
-          <AnimatePresence mode="wait">
-            {activeEvent === "quantum" && (
+              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h3 className="activities-theme-title font-display text-2xl font-semibold text-center mb-8">Catalyst Chronicles</h3>
+                <BentoGallery items={exhibitionPhotos} />
+              </motion.div>
+
+              <SponsorStrip sponsors={exhibitionSponsors} title="Collaborative Partners" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`enigma-${themePulse}`}
+              data-active="true"
+              className="activities-event-panel"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            >
               <motion.div
                 key={`quantum-${themePulse}`}
                 className="activities-event-signal activities-event-signal-quantum"
@@ -235,70 +225,70 @@ export default function ActivitiesSection({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.85, ease: "easeOut" }}
               />
-            )}
-          </AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <span className="activities-theme-kicker text-sm font-semibold text-primary tracking-widest uppercase">Interactive Event</span>
-            <h2 className="activities-theme-title font-display text-3xl md:text-5xl font-bold mt-3">The Enigma Expedition</h2>
-            <p className="activities-theme-copy text-muted-foreground mt-2 text-base md:text-lg">Quantum Quest 2026</p>
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-8"
+              >
+                <span className="activities-theme-kicker text-sm font-semibold text-primary tracking-widest uppercase">Interactive Event</span>
+                <h2 className="activities-theme-title font-display text-3xl md:text-5xl font-bold mt-3">The Enigma Expedition</h2>
+                <p className="activities-theme-copy text-muted-foreground mt-2 text-base md:text-lg">Quantum Quest 2026</p>
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-6 mb-10"
-          >
-            {[
-              { icon: Calendar, text: "9th March, 2026" },
-              { icon: Clock, text: "01:45 PM" },
-              { icon: MapPin, text: "Synergy Square" },
-            ].map((m) => (
-              <div key={m.text} className="activities-theme-pill flex items-center gap-2 text-sm text-muted-foreground">
-                <m.icon size={16} className="text-primary" />
-                <span>{m.text}</span>
-              </div>
-            ))}
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap justify-center gap-6 mb-10"
+              >
+                {[
+                  { icon: Calendar, text: "9th March, 2026" },
+                  { icon: Clock, text: "01:45 PM" },
+                  { icon: MapPin, text: "Synergy Square" },
+                ].map((m) => (
+                  <div key={m.text} className="activities-theme-pill flex items-center gap-2 text-sm text-muted-foreground">
+                    <m.icon size={16} className="text-primary" />
+                    <span>{m.text}</span>
+                  </div>
+                ))}
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto mb-10"
-          >
-            <div className="activities-theme-card rounded-xl border border-border bg-card p-5 md:p-8">
-              <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
-                Quantum Quest 2026 is an event organised by the Eulim Science Club in collaboration with the <strong className="text-foreground">Christ Innovation and Incubation Centre (CIIC)</strong>. This event invites students from the School of Sciences to participate in a thrilling <strong className="text-foreground">"Stranger Things"</strong>-themed Treasure Hunt across the university campus.
-              </p>
-              <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
-                Participants will unravel science fiction-inspired clues as they race to discover the hidden treasure — fostering scientific curiosity, critical thinking, teamwork, and creative problem-solving.
-              </p>
-              <div className="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
-                <div className="activities-theme-card rounded-lg bg-primary/5 border border-primary/10 p-3">
-                  <span className="font-semibold text-foreground">🏆 1st Place</span>
-                  <p className="activities-theme-copy text-muted-foreground mt-1">Gift Hamper + E-Certificate of Appreciation</p>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="max-w-3xl mx-auto mb-10"
+              >
+                <div className="activities-theme-card rounded-xl border border-border bg-card p-5 md:p-8">
+                  <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
+                    Quantum Quest 2026 is an event organised by the Eulim Science Club in collaboration with the <strong className="text-foreground">Christ Innovation and Incubation Centre (CIIC)</strong>. This event invites students from the School of Sciences to participate in a thrilling <strong className="text-foreground">"Stranger Things"</strong>-themed Treasure Hunt across the university campus.
+                  </p>
+                  <p className="activities-theme-copy text-muted-foreground leading-relaxed mb-4">
+                    Participants will unravel science fiction-inspired clues as they race to discover the hidden treasure — fostering scientific curiosity, critical thinking, teamwork, and creative problem-solving.
+                  </p>
+                  <div className="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
+                    <div className="activities-theme-card rounded-lg bg-primary/5 border border-primary/10 p-3">
+                      <span className="font-semibold text-foreground">🏆 1st Place</span>
+                      <p className="activities-theme-copy text-muted-foreground mt-1">Gift Hamper + E-Certificate of Appreciation</p>
+                    </div>
+                    <div className="activities-theme-card rounded-lg bg-primary/5 border border-primary/10 p-3">
+                      <span className="font-semibold text-foreground">🎓 All Participants</span>
+                      <p className="activities-theme-copy text-muted-foreground mt-1">E-Certificate of Participation</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="activities-theme-card rounded-lg bg-primary/5 border border-primary/10 p-3">
-                  <span className="font-semibold text-foreground">🎓 All Participants</span>
-                  <p className="activities-theme-copy text-muted-foreground mt-1">E-Certificate of Participation</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h3 className="activities-theme-title font-display text-2xl font-semibold text-center mb-8">Expedition Archives</h3>
-            <BentoGallery items={quantumPhotos} />
-          </motion.div>
+              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h3 className="activities-theme-title font-display text-2xl font-semibold text-center mb-8">Expedition Archives</h3>
+                <BentoGallery items={quantumPhotos} />
+              </motion.div>
 
-          <SponsorStrip sponsors={quantumSponsors} title="In Collaboration With" />
-        </motion.div>
+              <SponsorStrip sponsors={quantumSponsors} title="In Collaboration With" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
